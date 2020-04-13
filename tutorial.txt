@@ -1,0 +1,66 @@
+
+https://towardsml.com/2019/09/17/bert-explained-a-complete-guide-with-theory-and-tutorial/
+
+https://gist.github.com/samk3211/1d233b29ce5acc93f4a3e8c13db8ccd3
+
+https://ai.googleblog.com/2018/11/open-sourcing-bert-state-of-art-pre.html?m=1
+
+https://github.com/google-research/bert
+https://github.com/google-research/bert#fine-tuning-with-bert
+
+imp tutorial for tensorflow 2.0 for bert
+https://analyticsindiamag.com/bert-classifier-with-tensorflow-2-0/
+https://analyticsindiamag.com/step-by-step-guide-to-implement-multi-class-classification-with-bert-tensorflow/
+
+https://github.com/kpe/bert-for-tf2
+
+
+bert-for-tf2  examples
+https://github.com/kpe/bert-for-tf2/blob/master/examples/gpu_movie_reviews.ipynb
+
+
+git clone https://github.com/google-research/bert.git
+
+https://github.com/tensorflow/models/tree/master/official/nlp/bert
+https://github.com/huggingface/transformers
+
+pytorch tutorial:--
+https://ireneli.eu/2019/07/05/deep-learning-17-text-classification-with-bert-using-pytorch/
+
+https://github.com/huggingface/transformers/tree/master/examples==hugging face
+
+https://ireneli.eu/2019/07/05/deep-learning-17-text-classification-with-bert-using-pytorch/
+
+##fast bert implementation https://github.com/kaushaltrivedi/fast-bert
+
+IMp--https://github.com/bentrevett/pytorch-sentiment-analysis/blob/master/6%20-%20Transformers%20for%20Sentiment%20Analysis.ipynb
+
+https://huggingface.co/transformers/usage.html#sequence-classification
+Here are links to the files for English:
+
+BERT-Base, Uncased: 12-layers, 768-hidden, 12-attention-heads, 110M parameters
+BERT-Large, Uncased: 24-layers, 1024-hidden, 16-attention-heads, 340M parameters
+BERT-Base, Cased: 12-layers, 768-hidden, 12-attention-heads , 110M parameters
+BERT-Large, Cased: 24-layers, 1024-hidden, 16-attention-heads, 340M parameters
+
+We need to choose which BERT pre-trained weights we want. For example, if we don’t have access to a Google TPU, we’d rather stick with the Base models. And then the choice of “cased” vs “uncased” depends on whether we think letter casing will be helpful for the task at hand. I downloaded the BERT-Base-Cased model for this tutorial.
+
+
+###
+we need to first create tsv files for BERT training.
+First let's make the data compliant with BERT:
+
+Column 0: An ID for the row. (Required both for train and test data.)
+Column 1: The class label for the row. (Required only for train data.)
+Column 2: A column of the same letter for all rows — this is a throw-away column that we need to include because BERT expects it. (Required only for train data.)
+Column 3: The text examples we want to classify. (Required both for train and test data.)
+
+We need to split the files into the format expected by BERT: BERT comes with data loading classes that expects two files called train and dev for training. In addition, BERT’s data loading classes can also use a test file but it expects the test file to be unlabelled.
+
+
+Once the data is in the correct format, we need to save the files as .tsv (BERT doesn't take .csv as input.)
+
+
+for GPU :--CUDA_VISIBLE_DEVICES=0 
+
+CUDA_VISIBLE_DEVICES=0 python run_classifier.py --task_name=cola --do_train=true --do_eval=true --do_predict=true --data_dir=./data/ --vocab_file=./cased_L-12_H-768_A-12/vocab.txt --bert_config_file=./cased_L-12_H-768_A-12/bert_config.json --init_checkpoint=./cased_L-12_H-768_A-12/bert_model.ckpt --max_seq_length=128 --train_batch_size=32 --learning_rate=2e-5 --num_train_epochs=3.0 --output_dir=./bert_output/ --do_lower_case=False
